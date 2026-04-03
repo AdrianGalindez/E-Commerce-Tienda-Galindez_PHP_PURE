@@ -20,7 +20,7 @@ class BrandController {
         $stmt = $this->model->all();
         $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        require __DIR__ . "/../views/BrandIndexView.php";
+       require_once __DIR__ . "/../views/ClientBrands.php";
     }
 
     public function create(){

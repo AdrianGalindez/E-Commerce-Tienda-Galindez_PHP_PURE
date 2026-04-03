@@ -21,14 +21,16 @@ class Product {
     }
 
     public function all(){
-
-        $query = "SELECT * FROM products";
-
-        $stmt = $this->conn->prepare($query);
-
-        $stmt->execute();
-
-        return $stmt;
+        $sql = "SELECT 
+                    p.*, 
+                    c.nombre AS categoria, 
+                    b.nombre AS marca
+                FROM products p
+                LEFT JOIN categories c ON p.categoria_id = c.id
+                LEFT JOIN brands b ON p.marca_id = b.id";
+    
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function create(){
@@ -51,5 +53,43 @@ class Product {
         $stmt->bindParam(":proveedor_id",$this->proveedor_id);
 
         return $stmt->execute();
+    }
+
+
+    public function getCategorias(){
+       $sql = "SELECT * FROM categories";
+       $stmt = $this->conn->query($sql);
+       return $stmt->fetchAll(PDO::FETCH_ASSOC);
+   }
+    public function getByCategorias($id){
+        $sql = "SELECT 
+                    p.*, 
+                    c.nombre AS categoria, 
+                    b.nombre AS marca
+                FROM products p
+                LEFT JOIN categories c ON p.categoria_id = c.id
+                LEFT JOIN brands b ON p.marca_id = b.id
+                WHERE p.categoria_id = ?";
+    
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } 
+
+    public function getById($id){
+        $sql = "SELECT 
+                    p.*, 
+                    c.nombre AS categoria, 
+                    b.nombre AS marca
+                FROM products p
+                LEFT JOIN categories c ON p.categoria_id = c.id
+                LEFT JOIN brands b ON p.marca_id = b.id
+                WHERE p.id = ?";
+    
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+    
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
