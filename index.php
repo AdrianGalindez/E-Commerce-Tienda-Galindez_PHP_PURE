@@ -13,8 +13,8 @@ error_reporting(E_ALL);
 |--------------------------------------------------------------------------
 */
 
-$controller = $_GET['controller'] ?? 'Auth';
-$action     = $_GET['action'] ?? 'login';
+$controller = $_GET['controller'] ?? 'product';
+$action     = $_GET['action'] ?? 'index';
 
 $controllerName = ucfirst($controller) . "Controller";
 

@@ -10,17 +10,25 @@
     <tr>
         <th>ID</th>
         <th>Nombre</th>
+        <th>Descripción</th>
         <th>Precio</th>
+        <th>Stock</th>
+        <th>Categoría</th>
+        <th>Marca</th>
         <th>Acciones</th>
     </tr>
+
 <?php foreach($products as $p): ?>
 <tr>
     <td><?= $p['id'] ?></td>
     <td><?= $p['nombre'] ?></td>
+    <td><?= $p['descripcion'] ?></td>
     <td><?= $p['precio'] ?></td>
+    <td><?= $p['stock'] ?></td>
+    <td><?= $p['categoria'] ?></td>
+    <td><?= $p['marca'] ?></td>
     <td>
         <a href="index.php?controller=Product&action=edit&id=<?= $p['id'] ?>">Editar</a> |
-        <a href="index.php?controller=Product&action=show&id=<?= $p['id'] ?>">Ver</a> |
         <a href="index.php?controller=Product&action=delete&id=<?= $p['id'] ?>">Eliminar</a>
     </td>
 </tr>

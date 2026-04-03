@@ -13,8 +13,8 @@ spl_autoload_register(function ($class) {
 });
 
 // Obtener controlador y acción desde la URL
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'Auth';
-$action = isset($_GET['action']) ? $_GET['action'] : 'login';
+$controller = isset($_GET['controller']) ? $_GET['controller'] : 'Product';
+$action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
 // Convertir a formato correcto de controlador
 $controller = ucfirst($controller) . 'Controller';
