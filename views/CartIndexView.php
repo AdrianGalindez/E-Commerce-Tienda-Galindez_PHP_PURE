@@ -4,10 +4,13 @@
     <title>Carrito de Compras</title>
 </head>
 <body>
+
 <h2>Carrito de Compras</h2>
+
 <?php if(empty($cartItems)): ?>
     <p>El carrito está vacío.</p>
 <?php else: ?>
+
 <table border="1">
     <tr>
         <th>Producto</th>
@@ -16,21 +19,31 @@
         <th>Subtotal</th>
         <th>Acciones</th>
     </tr>
+
     <?php foreach($cartItems as $item): ?>
     <tr>
-        <td><?= $item['name'] ?></td>
-        <td><?= $item['quantity'] ?></td>
-        <td><?= $item['price'] ?></td>
-        <td><?= $item['quantity'] * $item['price'] ?></td>
+        <td><?= $item['nombre'] ?></td>
+        <td><?= $item['cantidad'] ?></td>
+        <td><?= $item['precio'] ?></td>
+        <td><?= $item['cantidad'] * $item['precio'] ?></td>
         <td>
-            <a href="index.php?controller=Cart&action=remove&id=<?= $item['id'] ?>">Eliminar</a>
+            <a href="index.php?controller=Cart&action=remove&id=<?= $item['id'] ?>">
+                Eliminar
+            </a>
         </td>
     </tr>
     <?php endforeach; ?>
+
 </table>
-<p>Total: <?= $total ?></p>
+
+<p><strong>Total: <?= $total ?></strong></p>
+
 <a href="index.php?controller=Cart&action=checkout">Ir a Checkout</a>
+
 <?php endif; ?>
+
+<br><br>
 <a href="index.php?controller=Dashboard&action=index">Volver</a>
+
 </body>
 </html>

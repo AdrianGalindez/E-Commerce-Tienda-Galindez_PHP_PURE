@@ -1,5 +1,9 @@
 <?php
-
+session_start();
+// 🔥 AGREGA ESTO (SI NO TIENES LOGIN)
+if(!isset($_SESSION["user_id"])){
+    $_SESSION["user_id"] = 1;
+}
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
