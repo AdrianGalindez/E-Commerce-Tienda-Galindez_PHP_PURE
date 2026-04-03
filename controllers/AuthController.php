@@ -8,7 +8,7 @@ class AuthController {
 
     public function __construct(){
     
-        session_start();
+        // session_start();
     
         $database = new Database();
         $db = $database->connect();
