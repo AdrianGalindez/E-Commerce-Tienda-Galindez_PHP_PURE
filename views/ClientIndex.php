@@ -2,6 +2,14 @@
 if(!defined('BASE_URL')){
     define('BASE_URL', '/E-Commerce-Tienda-Galindez_PHP_PURE/');
 }
+// 🔥 AGREGAR IMÁGENES A CADA PRODUCTO
+require_once __DIR__ . "/../models/ProductImage.php";
+$imageModel = new ProductImage();
+
+foreach($productos as &$p){
+    $img = $imageModel->getByProductId($p['id']);
+    $p['imagen'] = $img ? $img['url'] : null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +27,7 @@ if(!defined('BASE_URL')){
 <body>
 <!-- HEADER -->
 <header id="header">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid">
     <a class="navbar-brand" href="<?= BASE_URL ?>index.php"><i class="bi bi-house-door"></i> Tienda Galindez</a>
 
@@ -87,23 +95,28 @@ if(!defined('BASE_URL')){
 </nav>
 </header>
 
-<!-- CAROUSEL -->
-<div id="carouselExample" class="carousel slide">
+<!-- carousel -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
-
     <div class="carousel-item active">
       <img src="/assets/img/farmacia.jpg" class="d-block w-100">
     </div>
-
     <div class="carousel-item">
       <img src="/assets/img/granos.jpg" class="d-block w-100">
     </div>
-
     <div class="carousel-item">
       <img src="/assets/img/papeleria.jpg" class="d-block w-100">
     </div>
-
   </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
 </div>
 
 <!-- PRODUCTOS -->

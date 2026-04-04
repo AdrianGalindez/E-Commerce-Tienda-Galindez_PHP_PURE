@@ -16,7 +16,7 @@ define('BASE_URL', '/');
 
 <!-- HEADER -->
 <header id="header">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid">
     <a class="navbar-brand" href="<?= BASE_URL ?>index.php"><i class="bi bi-house-door"></i> Tienda Galindez</a>
 
