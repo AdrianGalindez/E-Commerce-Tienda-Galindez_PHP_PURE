@@ -14,13 +14,8 @@ class ProductController{
         $this->model = new Product($db);
     }
 
-    // public function index(){
 
-    //     $products = $this->model->all();
-
-    //     require __DIR__ . "/../views/ProductIndexView.php";
-
-    // }
+    
     public function index(){
     
         // Productos con categoría y marca
@@ -29,14 +24,8 @@ class ProductController{
         // Categorías
         $categorias = $this->model->getCategorias();
     
-        // 🔥 AGREGAR IMÁGENES A CADA PRODUCTO
-        require_once __DIR__ . "/../models/ProductImage.php";
-        $imageModel = new ProductImage();
-    
-        foreach($productos as &$p){
-            $img = $imageModel->getByProductId($p['id']);
-            $p['imagen'] = $img ? $img['url'] : null;
-        }
+        // 🔥 AGREGAR IMÁGENES A CADA PRODUCTO usando el método auxiliar
+        $this->attachImages($productos);
     
         require __DIR__ . "/../views/ClientIndex.php";
     }
@@ -117,6 +106,19 @@ class ProductController{
         // 🔥 Convertir a array simple
         $product['fotos'] = array_column($imagenes, 'url');
         require __DIR__ . "/../views/ClientDetailProduct.php";
+    }
+
+    // 🔥 MÉTODO AUXILIAR: AGREGAR IMÁGENES A LOS PRODUCTOS
+    private function attachImages(&$productos) {
+        require_once __DIR__ . "/../models/ProductImage.php";
+        $imageModel = new ProductImage();
+
+        foreach($productos as &$p){
+            // Obtener todas las imágenes del producto
+            $imagenes = $imageModel->getAllByProductId($p['id']);
+            $p['imagenes'] = $imagenes; // Todas las imágenes para carrusel
+            $p['imagen'] = $imagenes[0]['url'] ?? null; // Primera imagen para cards
+        }
     }
 
 }
