@@ -1,29 +1,35 @@
 <?php
 // controllers/PaymentController.php
 
-require_once "../models/Payment.php";
-require_once "../models/Order.php";
-
+require_once "models/Payment.php";
+require_once "models/Order.php";
+require_once "models/Cart.php";
+require_once "config/database.php";
+require_once "models/User.php";
 class PaymentController {
 
     private $model;
     private $orderModel;
 
     public function __construct() {
-        $this->model = new Payment();
-        $this->orderModel = new Order();
-    }
+
+    $database = new Database();
+    $db = $database->connect();
+
+    $this->model = new Payment($db);
+    $this->orderModel = new Order($db);
+}
 
     // Listar todos los pagos
     public function index() {
         $payments = $this->model->getAll();
-        require "../views/PaymentIndexView.php";
+        require "views/PaymentIndexView.php";
     }
 
     // Mostrar formulario para crear pago
     public function create() {
         $orders = $this->orderModel->getAll();
-        require "../views/PaymentCreateView.php";
+        require "views/PaymentIndexView.php";
     }
 
     // Guardar un nuevo pago
@@ -43,7 +49,7 @@ class PaymentController {
         $id = $_GET["id"];
         $payment = $this->model->getById($id);
         $orders = $this->orderModel->getAll();
-        require "../views/PaymentEditView.php";
+        require "views/PaymentEditView.php";
     }
 
     // Actualizar pago
@@ -70,6 +76,32 @@ class PaymentController {
     public function show() {
         $id = $_GET["id"];
         $payment = $this->model->getById($id);
-        require "../views/PaymentShowView.php";
+        require "views/PaymentShowView.php";
     }
+
+    public function checkout(){
+
+    $user_id = $_SESSION["user_id"];
+
+    $database = new Database();
+    $db = $database->connect();
+
+    // MODELOS
+    $cartModel = new Cart($db);
+    $userModel = new User($db);
+
+    // 🛒 CARRITO
+    $cartItems = $cartModel->getCart($user_id);
+
+    // 👤 USUARIO
+    $user = $userModel->find($user_id);
+
+    // 💰 TOTAL
+    $total = 0;
+    foreach($cartItems as $item){
+        $total += $item["cantidad"] * $item["precio"];
+    }
+
+    require "views/PaymentIndexView.php";
+    }  
 }

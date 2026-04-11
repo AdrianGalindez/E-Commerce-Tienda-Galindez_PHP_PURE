@@ -1,7 +1,13 @@
+<?= 
+define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Listado de Categorías</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/categories.css">
 </head>
 <body>
 
@@ -62,26 +68,73 @@
 <!-- /Header del Admin -->
 
 
-<h2>Categorías</h2>
-<a href="index.php?controller=Category&action=create">Crear Categoría</a>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
-    </tr>
-<?php foreach($categories as $c): ?>
-<tr>
-    <td><?= $c['id'] ?></td>
-    <td><?= $c['nombre'] ?></td>
-    <td>
-        <a href="index.php?controller=Category&action=edit&id=<?= $c['id'] ?>">Editar</a> |
-        <a href="index.php?controller=Category&action=delete&id=<?= $c['id'] ?>">Eliminar</a>
-    </td>
-</tr>
-<?php endforeach; ?>
-</table>
-<a href="index.php?controller=Dashboard&action=index">Volver</a>
+<main class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Gestionar Categorías</h2>
+
+        <a href="index.php?controller=category&action=create" class="btn btn-primary">
+            Crear Categoría
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th hidden>ID</th>
+                <th>Nombre</th>
+                <th width="120">Editar</th>
+                <th width="120">Eliminar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <?php if(!empty($categories)): ?>
+
+            <?php foreach($categories as $c): ?>
+                <tr>
+                    <td hidden><?= $c['id'] ?></td>
+
+                    <td><?= htmlspecialchars($c['nombre'] ?? '') ?></td>
+
+                    <td>
+                        <a href="index.php?controller=category&action=edit&id=<?= $c['id'] ?>" 
+                           class="btn btn-success btn-sm">
+                            Editar
+                        </a>
+                    </td>
+
+                    <td>
+                      <form action="index.php?controller=category&action=delete" method="POST" style="display:inline;">
+                          <input type="hidden" name="id" value="<?= $c['id'] ?>">
+                          <button class="btn btn-danger btn-sm"
+                                  onclick="return confirm('¿Eliminar esta categoría?')">
+                              Eliminar
+                          </button>
+                      </form>
+                  </td>
+                </tr>
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <tr>
+                <td colspan="4" class="text-center text-muted">
+                    No hay categorías registradas
+                </td>
+            </tr>
+
+        <?php endif; ?>
+
+        </tbody>
+    </table>
+
+    <a href="index.php?controller=dashboard&action=index" class="btn btn-secondary">
+        Volver
+    </a>
+
+</main>
 
 
 <!-- FOOTER -->
@@ -129,6 +182,6 @@
         © 2026 Tienda Galindez - Todos los derechos reservados
     </div>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -188,11 +188,7 @@ define('BASE_URL', '/');
             </div>
 
             <!-- Checkout -->
-            <form action="index.php?controller=checkout&action=process" method="POST">
-                <button class="btn btn-success w-100 mt-3">
-                    Proceder al Pago
-                </button>
-            </form>
+            <a href="index.php?controller=payment&action=checkout" class="btn btn-success">Proceder al pago</a>
 
         </div>
 

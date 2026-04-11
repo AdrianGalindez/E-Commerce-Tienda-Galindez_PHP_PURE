@@ -38,4 +38,18 @@ class CategoryController {
         header("Location: index.php?controller=category&action=index");
     }
 
+    public function delete(){
+
+    if(!isset($_POST["id"])){
+        die("ID no especificado");
+    }
+
+    $id = $_POST["id"];
+
+    $this->model->delete($id);
+
+    header("Location: index.php?controller=category&action=index");
+    exit;
+    }
+
 }

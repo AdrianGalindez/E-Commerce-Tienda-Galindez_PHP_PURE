@@ -1,75 +1,77 @@
 <?php
 
-require_once "models/Cart.php";
 require_once "config/database.php";
-
+require_once "models/Product.php";
 class CartController{
 
     private $model;
-
-    public function __construct(){
-
-        $database = new Database();
-        $db = $database->connect();
-
-        $this->model = new Cart($db);
-    }
-
-    // 🔹 Mostrar carrito
+     
+    // Mostrar carrito
     public function index(){
+        
+    $database = new Database();
+    $db = $database->connect();
+    $productModel = new Product($db);
 
-        $user_id = $_SESSION["user_id"] ?? null;
-        if(!$user_id){
-            die("Usuario no logueado");
+    $cart = $_SESSION["cart"] ?? [];
+
+    $productosCarrito = [];
+    $subtotal = 0;
+
+    foreach($cart as $product_id => $data){
+
+        $producto = $productModel->getById($product_id);
+
+        if($producto){
+            $producto["cantidad"] = $data["cantidad"];
+            $producto["subtotal"] = $producto["precio"] * $data["cantidad"];
+
+            $subtotal += $producto["subtotal"];
+
+            $productosCarrito[] = $producto;
         }
-
-        // Traer productos del carrito
-        $productosCarrito = $this->model->getCart($user_id);
-
-        // Calcular subtotal
-        $subtotal = 0;
-        if(!empty($productosCarrito)){
-            foreach($productosCarrito as $item){
-                $subtotal += $item['cantidad'] * $item['precio'];
-            }
-        }
-
-        // Enviar variables a la vista
-        require "views/ClientCart.php";
     }
 
-    // 🔹 Agregar producto
+    require "views/ClientCart.php";
+    }
+
+    // Agregar producto
     public function add(){
-        $user_id = $_SESSION["user_id"] ?? null;
-        if(!$user_id){
-            die("Usuario no logueado");
-        }
 
-        if(!isset($_POST["product_id"])){
-           die("Producto no especificado.");
-        }
-
-        $product_id = $_POST["product_id"];
-
-        $this->model->addProduct($user_id, $product_id);
-
-        header("Location: index.php?controller=cart&action=index");
-        exit;
+    if(!isset($_POST["product_id"])){
+        die("Producto no especificado.");
     }
 
-    // 🔹 Eliminar producto
+    $product_id = $_POST["product_id"];
+
+    if(!isset($_SESSION["cart"])){
+        $_SESSION["cart"] = [];
+    }
+
+    if(isset($_SESSION["cart"][$product_id])){
+        $_SESSION["cart"][$product_id]["cantidad"]++;
+    } else {
+        $_SESSION["cart"][$product_id] = ["cantidad" => 1];
+    }
+
+    header("Location: index.php?controller=cart&action=index");
+    exit;
+   }
+
+    // Eliminar producto
     public function delete(){
-        if(!isset($_POST["producto_id"])){
-            die("Producto no especificado para eliminar.");
-        }
 
-        $cart_id = $_SESSION["user_id"];
-        $product_id = $_POST["producto_id"];
+    if(!isset($_POST["producto_id"])){
+        die("Producto no especificado.");
+    }
 
-        // Aquí asumimos que tu modelo elimina por cart_id y product_id
-        $this->model->removeByProductId($cart_id, $product_id);
+    $product_id = $_POST["producto_id"];
 
-        header("Location: index.php?controller=cart&action=index");
-        exit;
+    if(isset($_SESSION["cart"][$product_id])){
+        unset($_SESSION["cart"][$product_id]);
+    }
+
+    header("Location: index.php?controller=cart&action=index");
+    exit;
     }
 }

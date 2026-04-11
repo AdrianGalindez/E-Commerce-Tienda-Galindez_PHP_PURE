@@ -1,7 +1,13 @@
+<?= 
+define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Crear Categoría</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/categories.css">
 </head>
 <body>
 
@@ -115,6 +121,6 @@
         © 2026 Tienda Galindez - Todos los derechos reservados
     </div>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
