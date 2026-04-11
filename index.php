@@ -1,35 +1,43 @@
 <?php
 session_start();
-// 🔥 AGREGA ESTO (SI NO TIENES LOGIN)
+
+// Usuario por defecto (pruebas)
 if(!isset($_SESSION["user_id"])){
     $_SESSION["user_id"] = 1;
 }
+
+// Mostrar errores
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/*
-|--------------------------------------------------------------------------
-| Router MVC simple
-|--------------------------------------------------------------------------
-*/
+// Autoload (modelos y controladores)
+spl_autoload_register(function ($class) {
+    if (file_exists("controllers/$class.php")) {
+        require "controllers/$class.php";
+    } elseif (file_exists("models/$class.php")) {
+        require "models/$class.php";
+    }
+});
 
+// Obtener parámetros
 $controller = $_GET['controller'] ?? 'product';
-$action     = $_GET['action'] ?? 'index';
+$action = $_GET['action'] ?? 'index';
 
-$controllerName = ucfirst($controller) . "Controller";
+// Formatear nombre
+$controllerName = ucfirst($controller) . 'Controller';
 
-$controllerFile = "controllers/" . $controllerName . ".php";
-
-if(!file_exists($controllerFile)){
-    die("Controlador no encontrado");
+// Validar existencia
+if (!class_exists($controllerName)) {
+    die("Controlador $controllerName no existe.");
 }
 
-require_once $controllerFile;
+// Instanciar
+$controllerInstance = new $controllerName();
 
-$controllerObject = new $controllerName();
-
-if(!method_exists($controllerObject, $action)){
-    die("Acción no encontrada");
+// Validar método
+if (!method_exists($controllerInstance, $action)) {
+    die("Acción $action no existe en $controllerName.");
 }
 
-$controllerObject->$action();
+// Ejecutar
+$controllerInstance->$action();

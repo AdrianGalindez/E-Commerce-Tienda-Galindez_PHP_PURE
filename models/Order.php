@@ -10,10 +10,10 @@ class Order {
     public $total;
 
     public function __construct($db){
-
         $this->conn = $db;
     }
 
+    // CREAR ORDEN
     public function create(){
 
         $query = "INSERT INTO orders(user_id,total)
@@ -26,4 +26,16 @@ class Order {
 
         return $stmt->execute();
     }
+
+    // OBTENER TODAS LAS ORDENES
+    public function getAll(){
+
+        $query = "SELECT * FROM " . $this->table;
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
