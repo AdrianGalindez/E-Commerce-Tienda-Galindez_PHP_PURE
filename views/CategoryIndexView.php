@@ -1,4 +1,4 @@
-<?= 
+<?php 
 define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
 ?>
 <!DOCTYPE html>
@@ -70,14 +70,6 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
 
 <main class="container mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Gestionar Categorías</h2>
-
-        <a href="index.php?controller=category&action=create" class="btn btn-primary">
-            Crear Categoría
-        </a>
-    </div>
-
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
             <tr>
@@ -115,8 +107,9 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
                       </form>
                   </td>
                 </tr>
+                
             <?php endforeach; ?>
-
+            
         <?php else: ?>
 
             <tr>
@@ -124,18 +117,14 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
                     No hay categorías registradas
                 </td>
             </tr>
-
+ 
         <?php endif; ?>
-
         </tbody>
     </table>
-
-    <a href="index.php?controller=dashboard&action=index" class="btn btn-secondary">
-        Volver
-    </a>
+           
 
 </main>
-
+ <a href="index.php?controller=category&action=create" class="btn btn-primary">Crear Categoría</a>
 
 <!-- FOOTER -->
 <footer class="footer">

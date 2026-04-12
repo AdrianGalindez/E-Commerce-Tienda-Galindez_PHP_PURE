@@ -46,7 +46,40 @@ class CategoryController {
 
     $id = $_POST["id"];
 
+    if($this->model->hasProducts($id)){
+        header("Location: index.php?controller=category&action=index");
+        die("No puedes eliminar esta categoría porque tiene productos asociados");
+    }
+
     $this->model->delete($id);
+
+    header("Location: index.php?controller=category&action=index");
+    exit;
+    }
+
+    public function edit(){
+
+    if(!isset($_GET["id"])){
+        die("ID no especificado");
+    }
+
+    $id = $_GET["id"];
+
+    $category = $this->model->find($id);
+
+    require __DIR__ . "/../views/CategoryEditView.php";
+    }
+
+    public function update(){
+
+    if(!isset($_POST["id"]) || !isset($_POST["nombre"])){
+        die("Datos incompletos");
+    }
+
+    $this->model->id = $_POST["id"];
+    $this->model->nombre = $_POST["nombre"];
+
+    $this->model->update();
 
     header("Location: index.php?controller=category&action=index");
     exit;

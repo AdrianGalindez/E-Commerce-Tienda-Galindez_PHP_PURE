@@ -1,7 +1,13 @@
+<?php 
+define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Editar Categoría</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/categories.css">
 </head>
 <body>
 
@@ -62,12 +68,19 @@
 <!-- /Header del Admin -->
 
 <h2>Editar Categoría</h2>
-<form method="POST" action="index.php?controller=Category&action=update&id=<?= $category['id'] ?>">
+
+<form method="POST" action="index.php?controller=category&action=update">
+
+    <!-- ID oculto -->
+    <input type="hidden" name="id" value="<?= $category['id'] ?>">
+
     <label>Nombre:</label><br>
-    <input type="text" name="name" value="<?= $category['name'] ?>" required><br>
+    <input type="text" name="nombre" value="<?= $category['nombre'] ?>" required><br>
+
     <button type="submit">Actualizar</button>
+
 </form>
-<a href="index.php?controller=Category&action=index">Volver</a>
+
 
 
 <!-- FOOTER -->

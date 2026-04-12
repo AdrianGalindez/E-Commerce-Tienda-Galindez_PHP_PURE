@@ -73,7 +73,6 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
     <input type="text" name="name" required><br>
     <button type="submit">Guardar</button>
 </form>
-<a href="index.php?controller=Category&action=index">Volver</a>
 
 
 <!-- FOOTER -->
