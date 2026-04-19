@@ -25,12 +25,12 @@
             <i class="bi bi-gear"></i> Gestión
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=product&action=index"><i class="bi bi-box-seam"></i> Productos</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=category&action=index"><i class="bi bi-tags"></i> Categorías</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=brand&action=index"><i class="bi bi-bookmark-star"></i> Marcas</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=provider&action=index"><i class="bi bi-truck"></i> Proveedores</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=role&action=index"><i class="bi bi-person-badge"></i> Roles</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=user&action=index"><i class="bi bi-person-plus"></i> Usuarios</a></li>
+            <li><a class="dropdown-item" href="index.php?controller=product&action=index"><i class="bi bi-box-seam"></i> Productos</a></li>
+            <li><a class="dropdown-item" href="index.php?controller=category&action=index"><i class="bi bi-tags"></i> Categorías</a></li>
+            <li><a class="dropdown-item" href="index.php?controller=brand&action=index"><i class="bi bi-bookmark-star"></i> Marcas</a></li>
+            <li><a class="dropdown-item" href="index.php?controller=provider&action=index"><i class="bi bi-truck"></i> Proveedores</a></li>
+            <li><a class="dropdown-item" href="index.php?controller=role&action=index"><i class="bi bi-person-badge"></i> Roles</a></li>
+            <li><a class="dropdown-item" href="index.php?controller=user&action=index"><i class="bi bi-person-plus"></i> Usuarios</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=sale&action=index"><i class="bi bi-cart-check"></i> Ventas</a></li>
           </ul>
@@ -111,6 +111,7 @@
         © 2026 Tienda Galindez - Todos los derechos reservados
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

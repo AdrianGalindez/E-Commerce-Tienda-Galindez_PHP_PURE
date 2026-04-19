@@ -31,12 +31,12 @@ if(!defined('BASE_URL')){
             <i class="bi bi-gear"></i> Gestión
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=product&action=index"><i class="bi bi-box-seam"></i> Productos</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=category&action=index"><i class="bi bi-tags"></i> Categorías</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=brand&action=index"><i class="bi bi-bookmark-star"></i> Marcas</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=provider&action=index"><i class="bi bi-truck"></i> Proveedores</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=role&action=index"><i class="bi bi-person-badge"></i> Roles</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=user&action=index"><i class="bi bi-person-plus"></i> Usuarios</a></li>
+            <li><a class="dropdown-item" href=">index.php?controller=product&action=index"><i class="bi bi-box-seam"></i> Productos</a></li>
+            <li><a class="dropdown-item" href=">index.php?controller=category&action=index"><i class="bi bi-tags"></i> Categorías</a></li>
+            <li><a class="dropdown-item" href=">index.php?controller=brand&action=index"><i class="bi bi-bookmark-star"></i> Marcas</a></li>
+            <li><a class="dropdown-item" href=">index.php?controller=provider&action=index"><i class="bi bi-truck"></i> Proveedores</a></li>
+            <li><a class="dropdown-item" href=">index.php?controller=role&action=index"><i class="bi bi-person-badge"></i> Roles</a></li>
+            <li><a class="dropdown-item" href=">index.php?controller=user&action=index"><i class="bi bi-person-plus"></i> Usuarios</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=sale&action=index"><i class="bi bi-cart-check"></i> Ventas</a></li>
           </ul>
@@ -68,30 +68,74 @@ if(!defined('BASE_URL')){
 </header>
 <!-- /Header del Admin -->
 
-<h2>Listado de Usuarios</h2>
-<a href="index.php?controller=user&action=create">Agregar Usuario</a>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Teléfono</th>
-        <th>Acciones</th>
-    </tr>
-    <?php foreach($users as $user): ?>
-    <tr>
-        <td><?= $user['id'] ?></td>
-        <td><?= $user['nombre'] ?></td>
-        <td><?= $user['email'] ?></td>
-        <td><?= $user['telefono'] ?></td>
-        <td>
-            <a href="index.php?controller=user&action=edit&id=<?= $user['id'] ?>">Editar</a> |
-            <a href="index.php?controller=user&action=delete&id=<?= $user['id'] ?>">Eliminar</a>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Listado de Usuarios</h2>
 
+
+    </div>
+<main class="container mt-4">
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th hidden>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th width="120">Editar</th>
+                <th width="120">Eliminar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <?php if (!empty($users)): ?>
+
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    <td hidden><?= $user['id'] ?></td>
+
+                    <td><?= htmlspecialchars($user['nombre'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($user['email'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($user['telefono'] ?? '') ?></td>
+
+                    <td>
+                        <a href="index.php?controller=user&action=edit&id=<?= $user['id'] ?>" 
+                           class="btn btn-success btn-sm">
+                            Editar
+                        </a>
+                    </td>
+
+                    <td>
+                        <form action="index.php?controller=user&action=delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Eliminar este usuario?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <tr>
+                <td colspan="6" class="text-center text-muted">
+                    No hay usuarios registrados
+                </td>
+            </tr>
+
+        <?php endif; ?>
+
+        </tbody>
+    </table>
+
+</main>
+<a href="index.php?controller=user&action=create" class="btn btn-primary btn-sm">
+    Agregar Usuario
+</a>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -138,6 +182,7 @@ if(!defined('BASE_URL')){
         © 2026 Tienda Galindez - Todos los derechos reservados
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

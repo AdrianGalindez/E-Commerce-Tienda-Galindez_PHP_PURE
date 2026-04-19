@@ -1,4 +1,4 @@
-<?= 
+<?php 
 define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
 ?>
 
@@ -66,27 +66,70 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
 </nav>
 </header>
 <!-- /Header del Admin -->
+ 
+<div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Marcas</h2>
+</div>
+<main class="container mt-4">
 
-<h2>Marcas</h2>
-<a href="index.php?controller=Brand&action=create">Crear Marca</a>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
-    </tr>
-<?php foreach($brands as $b): ?>
-<tr>
-    <td><?= $b['id'] ?></td>
-    <td><?= $b['nombre'] ?></td>
-    <td>
-        <a href="index.php?controller=Brand&action=edit&id=<?= $b['id'] ?>">Editar</a> |
-        <a href="index.php?controller=Brand&action=delete&id=<?= $b['id'] ?>">Eliminar</a>
-    </td>
-</tr>
-<?php endforeach; ?>
-</table>
 
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th hidden>ID</th>
+                <th>Nombre</th>
+                <th width="120">Editar</th>
+                <th width="120">Eliminar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <?php if (!empty($brands)): ?>
+
+            <?php foreach ($brands as $b): ?>
+                <tr>
+                    <td hidden><?= $b['id'] ?></td>
+
+                    <td><?= htmlspecialchars($b['nombre'] ?? '') ?></td>
+
+                    <td>
+                        <a href="index.php?controller=Brand&action=edit&id=<?= $b['id'] ?>" 
+                           class="btn btn-success btn-sm">
+                            Editar
+                        </a>
+                    </td>
+
+                    <td>
+                        <form action="index.php?controller=Brand&action=delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="<?= $b['id'] ?>">
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Eliminar esta marca?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <tr>
+                <td colspan="4" class="text-center text-muted">
+                    No hay marcas registradas
+                </td>
+            </tr>
+
+        <?php endif; ?>
+
+        </tbody>
+    </table>
+
+</main>
+
+<a href="index.php?controller=Brand&action=create" class="btn btn-primary btn-sm">
+    Crear Marca
+</a>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -133,6 +176,7 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
         © 2026 Tienda Galindez - Todos los derechos reservados
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

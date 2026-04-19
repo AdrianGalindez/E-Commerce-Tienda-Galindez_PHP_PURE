@@ -1,4 +1,4 @@
-<?= 
+<?php 
 define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
 ?>
 <!DOCTYPE html>

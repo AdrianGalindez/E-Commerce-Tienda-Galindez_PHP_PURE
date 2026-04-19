@@ -1,5 +1,5 @@
-<?php
-define("BASE_URL", "http://localhost/E-Commerce-Tienda-Galindez_PHP_PURE/");
+<?php 
+define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,38 +66,80 @@ define("BASE_URL", "http://localhost/E-Commerce-Tienda-Galindez_PHP_PURE/");
 </nav>
 </header>
 <!-- /Header del Admin -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Productos</h2>
 
-<h2>Productos</h2>
-<a href="index.php?controller=Product&action=create">Crear Producto</a>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Descripción</th>
-        <th>Precio</th>
-        <th>Stock</th>
-        <th>Categoría</th>
-        <th>Marca</th>
-        <th>Acciones</th>
-    </tr>
 
-<?php foreach($productos as $p): ?>
-<tr>
-    <td><?= $p['id'] ?></td>
-    <td><?= $p['nombre'] ?></td>
-    <td><?= $p['descripcion'] ?></td>
-    <td><?= $p['precio'] ?></td>
-    <td><?= $p['stock'] ?></td>
-    <td><?= $p['categoria'] ?></td>
-    <td><?= $p['marca'] ?></td>
-    <td>
-        <a href="index.php?controller=Product&action=edit&id=<?= $p['id'] ?>">Editar</a> |
-        <a href="index.php?controller=Product&action=delete&id=<?= $p['id'] ?>">Eliminar</a>
-    </td>
-</tr>
-<?php endforeach; ?>
-</table>
+    </div>
+<main class="container mt-4">
 
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th hidden>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Marca</th>
+                <th width="120">Editar</th>
+                <th width="120">Eliminar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <?php if (!empty($productos)): ?>
+
+            <?php foreach ($productos as $p): ?>
+                <tr>
+                    <td hidden><?= $p['id'] ?></td>
+
+                    <td><?= htmlspecialchars($p['nombre'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($p['descripcion'] ?? '') ?></td>
+                    <td><?= $p['precio'] ?></td>
+                    <td><?= $p['stock'] ?></td>
+                    <td><?= htmlspecialchars($p['categoria'] ?? '') ?></td>
+                    <td><?= htmlspecialchars($p['marca'] ?? '') ?></td>
+
+                    <td>
+                        <a href="index.php?controller=Product&action=edit&id=<?= $p['id'] ?>" 
+                           class="btn btn-success btn-sm">
+                            Editar
+                        </a>
+                    </td>
+
+                    <td>
+                        <form action="index.php?controller=Product&action=delete" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="<?= $p['id'] ?>">
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Eliminar este producto?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+
+                </tr>
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <tr>
+                <td colspan="9" class="text-center text-muted">
+                    No hay productos registrados
+                </td>
+            </tr>
+
+        <?php endif; ?>
+
+        </tbody>
+    </table>
+
+</main>
+        <a href="index.php?controller=Product&action=create" class="btn btn-primary btn-sm">
+            Crear Producto
+        </a>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -144,6 +186,6 @@ define("BASE_URL", "http://localhost/E-Commerce-Tienda-Galindez_PHP_PURE/");
         © 2026 Tienda Galindez - Todos los derechos reservados
     </div>
 </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

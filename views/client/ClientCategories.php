@@ -147,6 +147,7 @@
 <footer class="text-center mt-5 p-3 bg-dark text-white">
     © 2026 Tienda Galindez
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
