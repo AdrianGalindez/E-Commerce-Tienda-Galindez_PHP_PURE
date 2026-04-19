@@ -1,67 +1,72 @@
 <?php
 
-require_once "../models/User.php";
+require_once __DIR__ . "/../config/Database.php";
+require_once __DIR__ . "/../models/User.php";
+require_once __DIR__ . "/../models/Role.php";
 
-class UserController{
+class UserController {
 
     private $model;
 
     public function __construct(){
-        $this->model = new User();
+
+        $database = new Database();
+        $db = $database->connect();
+
+        $this->model = new User($db); // ✔ AQUÍ VA EL DB
     }
 
     public function index(){
+        $stmt = $this->model->all();
+        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $users = $this->model->getAll();
-
-        require "../views/usersView.php";
-
+        require __DIR__ . "/../views/admin/users/usersView.php";
     }
 
     public function create(){
 
-        require "../views/usersCreateView.php";
+        $roleModel = new Role((new Database())->connect());
+        $roles = $roleModel->all();
 
+        require __DIR__ . "/../views/admin/users/usersCreateView.php";
     }
 
     public function store(){
 
-        $data = [
-            "nombre" => $_POST["nombre"],
-            "email" => $_POST["email"],
-            "telefono" => $_POST["telefono"],
-            "password" => password_hash($_POST["password"], PASSWORD_DEFAULT)
-        ];
+    if(empty($_POST["rol_id"])){
+        $_POST["rol_id"] = 2; // cliente por defecto
+    }
 
-        $this->model->create($data);
+    $this->model->nombre = $_POST["nombre"];
+    $this->model->email = $_POST["email"];
+    $this->model->telefono = $_POST["telefono"];
+    $this->model->password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+    $this->model->rol_id = $_POST["rol_id"];
 
-        header("Location: index.php?controller=user&action=index");
+    $this->model->create();
 
+    header("Location: index.php?controller=user&action=index");
     }
 
     public function edit(){
 
         $id = $_GET["id"];
 
-        $user = $this->model->getById($id);
+        $user = $this->model->find($id);
 
-        require "../views/usersEditView.php";
-
+        require __DIR__ . "/../views/admin/users/usersEditView.php";
     }
 
     public function update(){
 
-        $data = [
-            "id" => $_POST["id"],
-            "nombre" => $_POST["nombre"],
-            "email" => $_POST["email"],
-            "telefono" => $_POST["telefono"]
-        ];
+        $this->model->id = $_POST["id"];
+        $this->model->nombre = $_POST["nombre"];
+        $this->model->email = $_POST["email"];
+        $this->model->telefono = $_POST["telefono"];
 
-        $this->model->update($data);
+        $this->model->update();
 
         header("Location: index.php?controller=user&action=index");
-
     }
 
     public function delete(){
@@ -71,7 +76,5 @@ class UserController{
         $this->model->delete($id);
 
         header("Location: index.php?controller=user&action=index");
-
     }
-
 }

@@ -1,5 +1,4 @@
 <?php
-// controllers/SaleDetailController.php
 
 require_once "../models/Order.php";
 require_once "../models/Product.php";

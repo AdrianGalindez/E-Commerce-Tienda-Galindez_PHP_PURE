@@ -67,4 +67,19 @@ class User {
 
         return $stmt->execute();
     }
+
+    public function update(){
+
+    $query = "UPDATE users 
+              SET nombre = :nombre,
+                  email = :email,
+                  telefono = :telefono
+              WHERE id = :id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":nombre", $this->nombre);
+    $stmt->bindParam(":email", $this->email);
+    $stmt->bindParam(":telefono", $this->telefono);
+    $stmt->bindParam(":id", $this->id);
+    return $stmt->execute();
+    }
 }

@@ -5,10 +5,12 @@ session_start();
 if(!isset($_SESSION["user_id"])){
     $_SESSION["user_id"] = 1;
 }
-
+$_SESSION['rol_id'] = 1;
 // Mostrar errores
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
+
+
 
 // Autoload (modelos y controladores)
 spl_autoload_register(function ($class) {
@@ -22,6 +24,15 @@ spl_autoload_register(function ($class) {
 // Obtener parámetros
 $controller = $_GET['controller'] ?? 'product';
 $action = $_GET['action'] ?? 'index';
+
+
+
+// PROTECCIÓN DE RUTAS ADMIN
+if($controller == 'product' && $action == 'index'){
+    if(!isset($_SESSION['rol_id']) || $_SESSION['rol_id'] != 1){
+        $action = 'shop';
+    }
+}
 
 // Formatear nombre
 $controllerName = ucfirst($controller) . 'Controller';

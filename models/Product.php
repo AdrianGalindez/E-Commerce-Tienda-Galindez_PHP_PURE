@@ -92,4 +92,41 @@ class Product {
     
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+
+    public function getMarcas(){
+        $sql = "SELECT * FROM brands";
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function delete($id){
+      $query = "DELETE FROM products WHERE id = :id";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(":id", $id);
+      return $stmt->execute();
+   }
+
+
+    public function update(){
+
+        $query = "UPDATE products SET
+                    nombre = :nombre,
+                    descripcion = :descripcion,
+                    precio_costo = :precio_costo,
+                    precio = :precio,
+                    stock = :stock
+                WHERE id = :id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":nombre", $this->nombre);
+        $stmt->bindParam(":descripcion", $this->descripcion);
+        $stmt->bindParam(":precio_costo", $this->precio_costo);
+        $stmt->bindParam(":precio", $this->precio);
+        $stmt->bindParam(":stock", $this->stock);
+        $stmt->bindParam(":id", $this->id);
+
+        return $stmt->execute();
+    }
 }

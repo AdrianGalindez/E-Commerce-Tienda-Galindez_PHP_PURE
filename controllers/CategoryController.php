@@ -6,35 +6,26 @@ require_once __DIR__ . "/../models/Category.php";
 class CategoryController {
 
     private $model;
-
+    
     public function __construct(){
-
         $database = new Database();
         $db = $database->connect();
-
         $this->model = new Category($db);
     }
 
     public function index(){
-
         $stmt = $this->model->all();
-
         $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        require __DIR__ . "/../views/CategoryIndexView.php";
+        require __DIR__ . "/../views/admin/category/CategoryIndexView.php";
     }
 
     public function create(){
-
-        require __DIR__ . "/../views/CategoryCreateView.php";
+        require __DIR__ . "/../views/admin/category/CategoryCreateView.php";
     }
 
     public function store(){
-
         $this->model->nombre = $_POST["nombre"];
-
         $this->model->create();
-
         header("Location: index.php?controller=category&action=index");
     }
 
@@ -64,10 +55,8 @@ class CategoryController {
     }
 
     $id = $_GET["id"];
-
     $category = $this->model->find($id);
-
-    require __DIR__ . "/../views/CategoryEditView.php";
+    require __DIR__ . "/../views/admin/category/CategoryEditView.php";
     }
 
     public function update(){

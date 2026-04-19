@@ -32,7 +32,7 @@ class CartController{
         }
     }
 
-    require "views/ClientCart.php";
+    require "views/client/ClientCart.php";
     }
 
     // Agregar producto
