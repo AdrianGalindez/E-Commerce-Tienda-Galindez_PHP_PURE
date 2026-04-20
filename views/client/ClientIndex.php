@@ -1,10 +1,7 @@
 <?php
-
-if(!defined('BASE_URL')){
-    define('BASE_URL', '/E-Commerce-Tienda-Galindez_PHP_PURE/');
-}
-
+define("BASE_URL", "http://localhost:8000/");
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -123,7 +120,13 @@ if(!defined('BASE_URL')){
 <div class="col-md-3">
 <div class="card mb-4">
 
-    <img src="<?= !empty($p['imagen']) ? BASE_URL . $p['imagen'] : BASE_URL . 'assets/img/default.jpg' ?>" class="card-img-top">
+    <?php
+    $img = (!empty($p['imagenes']) && isset($p['imagenes'][0]['url']))
+        ? BASE_URL . $p['imagenes'][0]['url']
+        : BASE_URL . 'assets/img/default.jpg';
+    ?>
+
+<img src="<?= $img ?>" class="card-img-top">
     <div class="card-body">
         <h5><?= $p['nombre'] ?></h5>
         <p><?= $p['descripcion'] ?></p>
