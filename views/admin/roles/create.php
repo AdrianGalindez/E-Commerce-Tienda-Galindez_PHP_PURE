@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../partials/header.php';
+?>
+
 <h2>Crear Rol</h2>
 
 <form method="POST" action="index.php?controller=role&action=store">
@@ -9,4 +13,8 @@
 
     <button type="submit">Guardar</button>
 </form>
+
+
+<?php
+require_once __DIR__ . '/../partials/footer.php';
 

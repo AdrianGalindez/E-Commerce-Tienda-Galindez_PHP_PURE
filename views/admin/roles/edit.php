@@ -1,4 +1,6 @@
-<h2>Editar Rol</h2>
+<?php
+require_once __DIR__ . '/../partials/header.php';
+?><h2>Editar Rol</h2>
 
 <form method="POST" action="index.php?controller=role&action=update">
 
@@ -11,3 +13,8 @@
 
     <button type="submit">Actualizar</button>
 </form>
+
+
+
+<?php
+require_once __DIR__ . '/../partials/footer.php';

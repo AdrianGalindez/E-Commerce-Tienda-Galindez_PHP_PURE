@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/../partials/header.php';
+?>
+
 <h2>Roles</h2>
 
 <a href="index.php?controller=role&action=create">Crear Rol</a>
@@ -23,3 +27,8 @@
     </tr>
     <?php endforeach; ?>
 </table>
+
+
+
+<?php
+require_once __DIR__ . '/../partials/footer.php';
