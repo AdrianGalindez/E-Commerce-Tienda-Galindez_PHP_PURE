@@ -3,7 +3,6 @@
 define("BASE_URL", "http://localhost:8000/");
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -66,7 +65,7 @@ define("BASE_URL", "http://localhost:8000/");
 
         <!-- MARCAS -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=brand&action=index"><i class="bi bi-bookmark"></i> Marcas</a>       
+            <a class="nav-link" href="index.php?controller=brand&action=shop"><i class="bi bi-bookmark"></i> Marcas</a>       
         </li>
 
         <!-- CARRITO -->

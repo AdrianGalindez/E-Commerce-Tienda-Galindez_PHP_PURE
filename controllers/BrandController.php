@@ -59,4 +59,54 @@ class BrandController {
     header("Location: index.php?controller=brand&action=index");
     exit;
     }
+
+
+    public function show(){
+
+    if(!isset($_GET['nombre'])){
+        die("Marca no especificada");
+    }
+
+    $nombre = $_GET['nombre'];
+
+    // 🔥 conectar con productos
+    require_once __DIR__ . "/../models/Product.php";
+    $database = new Database();
+    $db = $database->connect();
+    $productModel = new Product($db);
+
+    // 🔎 buscar productos por marca
+    $productos = $productModel->getByBrand($nombre);
+
+    // 🔥 categorías para navbar
+    $categorias = $productModel->getCategorias();
+
+    // 🔥 imágenes
+    require_once __DIR__ . "/../models/ProductImage.php";
+    $imageModel = new ProductImage();
+
+    foreach($productos as &$p){
+        $imagenes = $imageModel->getAllByProductId($p['id']);
+        $p['imagenes'] = $imagenes;
+    }
+
+    require __DIR__ . "/../views/client/ClientBrands.php";
+}
+
+
+public function shop(){
+
+    $stmt = $this->model->all();
+    $brands = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // 🔥 cargar categorías (navbar)
+    require_once __DIR__ . "/../models/Product.php";
+    $database = new Database();
+    $db = $database->connect();
+    $productModel = new Product($db);
+
+    $categorias = $productModel->getCategorias();
+
+    require __DIR__ . "/../views/client/ClientBrands.php";
+}
 }

@@ -1,5 +1,5 @@
 <?php
-define('BASE_URL', '/');
+define("BASE_URL", "http://localhost:8000/");
 ?>
 
 <!DOCTYPE html>
@@ -9,12 +9,11 @@ define('BASE_URL', '/');
     <title>Marcas</title>
     <link rel="stylesheet" href="/assets/css/brands.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
-
+    <link rel="stylesheet" href="/assets/css/cards.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-
 <!-- HEADER -->
 <header id="header">
 <nav class="navbar navbar-expand-lg ">
@@ -59,12 +58,12 @@ define('BASE_URL', '/');
 
         <!-- PROMOCIONES -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=promotion&action=index"><i class="bi bi-tag"></i> Promociones</a>
+            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=promotion&action=shop"><i class="bi bi-tag"></i> Promociones</a>
         </li>
 
         <!-- MARCAS -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=brand&action=index"><i class="bi bi-bookmark"></i> Marcas</a>       
+            <a class="nav-link" href="index.php?controller=brand&action=shop"><i class="bi bi-bookmark"></i> Marcas</a>        
         </li>
 
         <!-- CARRITO -->
@@ -75,15 +74,37 @@ define('BASE_URL', '/');
       </ul>
 
       <!-- FORMULARIO DE BUSQUEDA -->
-      <form class="d-flex" role="search" action="<?= BASE_URL ?>index.php?controller=search&action=index" method="get">
-        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+<form 
+  class="d-flex" 
+  role="search" 
+  action="<?= BASE_URL ?>index.php" 
+  method="get">
+
+  <!-- CONTROLADOR Y ACCIÓN -->
+  <input type="hidden" name="controller" value="search">
+  <input type="hidden" name="action" value="index">
+
+  <!-- INPUT BUSQUEDA -->
+  <input 
+    class="form-control me-2" 
+    type="search" 
+    name="q" 
+    placeholder="Buscar productos..." 
+    value="<?= htmlspecialchars($_GET['q'] ?? '') ?>" 
+    aria-label="Search"
+  />
+
+  <button class="btn btn-outline-success" type="submit">
+    Buscar
+  </button>
+
+</form>
 
     </div>
   </div>
 </nav>
 </header>
+
 <h1 class="mb-3">Marcas</h1>
 <!-- MAIN -->
 <main class="container mt-4">
@@ -92,43 +113,36 @@ define('BASE_URL', '/');
     <p class="mb-4">
         Tus marcas favoritas.
     </p>
+<h1 class="mb-3">Marcas</h1>
 
-    <div class="row">
+<div class="row">
 
-        <?php if(!empty($brands)): ?>
-            <?php foreach($brands as $brand): ?>
+<?php foreach($brands as $brand): ?>
 
-                <div class="col-md-3">
-                    <div class="card mb-4">
+    <div class="col-md-3">
+        <div class="card mb-4">
 
-                        <!-- Imagen -->
-                        <img 
-                            src="<?= !empty($brand['foto']) ? $brand['foto'] : '/assets/img/default.jpg' ?>" 
-                            class="card-img-top"
-                        >
+            <img 
+                src="<?= !empty($brand['foto']) ? $brand['foto'] : '/assets/img/default.jpg' ?>" 
+                class="card-img-top"
+            >
 
-                        <div class="card-body">
-                            <h5 class="card-title"><?= $brand['nombre'] ?></h5>
-                            <p class="card-text">
-                                Marca registrada en el sistema
-                            </p>
-                        </div>
+            <div class="card-body">
+                <h5><?= htmlspecialchars($brand['nombre']) ?></h5>
+            </div>
 
-                        <div class="card-body">
-                            <a href="index.php?controller=brand&action=show&nombre=<?= urlencode($brand['nombre']) ?>" class="card-link">
-                                Ver productos
-                            </a>
-                        </div>
+            <div class="card-body">
+                <a href="index.php?controller=brand&action=show&id=<?= $brand['id'] ?>">
+                    Ver productos
+                </a>
+            </div>
 
-                    </div>
-                </div>
-
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p class="text-danger">No hay marcas disponibles</p>
-        <?php endif; ?>
-
+        </div>
     </div>
+
+<?php endforeach; ?>
+
+</div>
 
 </main>
 

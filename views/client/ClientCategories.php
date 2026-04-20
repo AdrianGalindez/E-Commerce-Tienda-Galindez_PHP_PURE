@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
 <!-- HEADER -->
 <header id="header">
 <nav class="navbar navbar-expand-lg ">
@@ -60,12 +59,12 @@
 
         <!-- PROMOCIONES -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=promotion&action=index"><i class="bi bi-tag"></i> Promociones</a>
+            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=promotion&action=shop"><i class="bi bi-tag"></i> Promociones</a>
         </li>
 
         <!-- MARCAS -->
         <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=brand&action=index"><i class="bi bi-bookmark"></i> Marcas</a>       
+            <a class="nav-link" href="index.php?controller=brand&action=shop"><i class="bi bi-bookmark"></i> Marcas</a>        
         </li>
 
         <!-- CARRITO -->
@@ -76,10 +75,31 @@
       </ul>
 
       <!-- FORMULARIO DE BUSQUEDA -->
-      <form class="d-flex" role="search" action="<?= BASE_URL ?>index.php?controller=search&action=index" method="get">
-        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+<form 
+  class="d-flex" 
+  role="search" 
+  action="<?= BASE_URL ?>index.php" 
+  method="get">
+
+  <!-- CONTROLADOR Y ACCIÓN -->
+  <input type="hidden" name="controller" value="search">
+  <input type="hidden" name="action" value="index">
+
+  <!-- INPUT BUSQUEDA -->
+  <input 
+    class="form-control me-2" 
+    type="search" 
+    name="q" 
+    placeholder="Buscar productos..." 
+    value="<?= htmlspecialchars($_GET['q'] ?? '') ?>" 
+    aria-label="Search"
+  />
+
+  <button class="btn btn-outline-success" type="submit">
+    Buscar
+  </button>
+
+</form>
 
     </div>
   </div>

@@ -157,4 +157,19 @@ class Product {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    public function getByBrand($nombre){
+
+    $query = "SELECT p.* 
+              FROM products p
+              INNER JOIN brands b ON p.marca_id = b.id
+              WHERE b.nombre = :nombre";
+
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(":nombre", $nombre);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

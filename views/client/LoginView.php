@@ -4,12 +4,11 @@
     <title>Login</title>
 </head>
 <body>
-
-<!-- Header del Admin (mismo estilo que el header de usuario) -->
+<!-- HEADER -->
 <header id="header">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid">
-    <a class="navbar-brand" href="<?= BASE_URL ?>index.php"><i class="bi bi-house-door"></i> Admin Tienda Galindez</a>
+    <a class="navbar-brand" href="<?= BASE_URL ?>index.php"><i class="bi bi-house-door"></i> Tienda Galindez</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,48 +17,83 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        <!-- Dropdown de Gestión -->
+        <!-- CATEGORIAS -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-gear"></i> Gestión
+            <i class="bi bi-grid"></i> Categorías
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=product&action=index"><i class="bi bi-box-seam"></i> Productos</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=category&action=index"><i class="bi bi-tags"></i> Categorías</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=brand&action=index"><i class="bi bi-bookmark-star"></i> Marcas</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=provider&action=index"><i class="bi bi-truck"></i> Proveedores</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=role&action=index"><i class="bi bi-person-badge"></i> Roles</a></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=user&action=index"><i class="bi bi-person-plus"></i> Usuarios</a></li>
+            <li>
+              <a class="dropdown-item" href="#"><i class="bi bi-grid"></i> Categorías</a>
+            </li>
+
+            <?php if(!empty($categorias)): ?>
+                <?php foreach($categorias as $cat): ?>
+                    <li>
+                        <a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=product&action=index&categoria=<?= urlencode($cat['nombre']) ?>">
+                            <i class="bi bi-tag"></i> <?= htmlspecialchars($cat['nombre']) ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <li><a class="dropdown-item text-danger">No hay categorías</a></li>
+            <?php endif; ?>
+
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=sale&action=index"><i class="bi bi-cart-check"></i> Ventas</a></li>
+            <li>
+              <a class="dropdown-item" href="<?= BASE_URL ?>index.php?controller=otros&action=index"><i class="bi bi-box"></i> Otros</a>
+            </li>
           </ul>
         </li>
 
-        <!-- Enlace a la tienda pública -->
+        <!-- PROMOCIONES -->
         <li class="nav-item">
-          <a class="nav-link" href="<?= BASE_URL ?>" target="_blank"><i class="bi bi-house-door"></i> Mi Tienda</a>
+            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=promotion&action=shop"><i class="bi bi-tag"></i> Promociones</a>
         </li>
 
-        <!-- Botón cerrar sesión -->
+        <!-- MARCAS -->
         <li class="nav-item">
-          <a href="<?= BASE_URL ?>index.php?controller=auth&action=logout" class="btn btn-danger btn-sm d-flex align-items-center">
-            <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
-          </a>
+            <a class="nav-link" href="index.php?controller=brand&action=shop"><i class="bi bi-bookmark"></i> Marcas</a>        
+        </li>
+
+        <!-- CARRITO -->
+        <li class="nav-item">
+            <a class="nav-link" href="<?= BASE_URL ?>index.php?controller=cart&action=index"><i class="bi bi-cart"></i> Carrito</a>
         </li>
 
       </ul>
 
-      <!-- Formulario de búsqueda admin -->
-      <form class="d-flex" role="search" action="<?= BASE_URL ?>index.php?controller=admin_search&action=index" method="GET">
-        <input class="form-control me-2" type="search" placeholder="Buscar en admin..." aria-label="Search" name="q">
-        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
-      </form>
+      <!-- FORMULARIO DE BUSQUEDA -->
+<form 
+  class="d-flex" 
+  role="search" 
+  action="<?= BASE_URL ?>index.php" 
+  method="get">
+
+  <!-- CONTROLADOR Y ACCIÓN -->
+  <input type="hidden" name="controller" value="search">
+  <input type="hidden" name="action" value="index">
+
+  <!-- INPUT BUSQUEDA -->
+  <input 
+    class="form-control me-2" 
+    type="search" 
+    name="q" 
+    placeholder="Buscar productos..." 
+    value="<?= htmlspecialchars($_GET['q'] ?? '') ?>" 
+    aria-label="Search"
+  />
+
+  <button class="btn btn-outline-success" type="submit">
+    Buscar
+  </button>
+
+</form>
 
     </div>
   </div>
 </nav>
 </header>
-<!-- /Header del Admin -->
 
 <h2>Login</h2>
 

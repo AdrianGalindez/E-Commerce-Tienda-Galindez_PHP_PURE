@@ -13,15 +13,6 @@ class ProductController {
     }
 
 
-    // CLIENTE - TIENDA
-    public function shop(){
-        $productos = $this->model->all();
-        $categorias = $this->model->getCategorias();
-        // Agregar imágenes
-        $this->attachImages($productos);
-        require __DIR__ . "/../views/client/ClientIndex.php";
-    }
-
     // CLIENTE - DETALLE
     public function show(){
         $id = $_GET["id"];
@@ -37,6 +28,7 @@ class ProductController {
     public function index(){
         $this->checkAdmin();
         $productos = $this->model->all();
+        $categorias = $this->model->getCategorias();
         require __DIR__ . "/../views/client/ClientIndex.php";
     }
 
