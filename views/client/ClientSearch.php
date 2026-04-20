@@ -133,6 +133,17 @@ define("BASE_URL", "http://localhost:8000/");
 </div>
 
 <!-- PRODUCTOS -->
+
+
+<h2 class="mt-4 text-center">
+    Resultados de búsqueda para: 
+    "<?= htmlspecialchars($_GET['q'] ?? '') ?>"
+</h2>
+
+<?php if(empty($productos)): ?>
+    <p class="text-center text-danger">No se encontraron productos</p>
+<?php endif; ?>
+
 <div class="container-cards">
 
 <?php foreach($productos as $p): ?>

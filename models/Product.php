@@ -140,4 +140,21 @@ class Product {
       $stmt->bindParam(":url", $url);
       return $stmt->execute();
     }
+
+
+    public function search($q){
+
+        $query = "SELECT * FROM products 
+                WHERE nombre LIKE :q 
+                OR descripcion LIKE :q";
+
+        $stmt = $this->conn->prepare($query);
+
+        $searchTerm = "%" . $q . "%";
+        $stmt->bindParam(":q", $searchTerm);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
