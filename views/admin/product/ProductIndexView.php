@@ -1,5 +1,5 @@
 <?php 
-define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/");
+define("BASE_URL", "http://localhost:8000/");
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,6 +78,7 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
             <tr>
                 <th hidden>ID</th>
                 <th>Nombre</th>
+                <th>Imagen</th>
                 <th>Descripción</th>
                 <th>Precio</th>
                 <th>Stock</th>
@@ -97,6 +98,13 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
                     <td hidden><?= $p['id'] ?></td>
 
                     <td><?= htmlspecialchars($p['nombre'] ?? '') ?></td>
+                    <td>
+                        <?php if(!empty($p['imagenes'])): ?>
+                        <?php foreach($p['imagenes'] as $img): ?>
+                            <img src="<?= BASE_URL . $img['url'] ?>" width="40">
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </td>
                     <td><?= htmlspecialchars($p['descripcion'] ?? '') ?></td>
                     <td><?= $p['precio'] ?></td>
                     <td><?= $p['stock'] ?></td>
@@ -111,7 +119,8 @@ define("BASE_URL", "http://localhost:8000/E-Commerce-Tienda-Galindez_PHP_PURE/")
                     </td>
 
                     <td>
-                        <form action="index.php?controller=Product&action=delete" method="POST" style="display:inline;">
+                        <form action="index.php?controller=Product&action=delete" method="POST" style="display:inline;" >
+                            
                             <input type="hidden" name="id" value="<?= $p['id'] ?>">
                             <button class="btn btn-danger btn-sm"
                                     onclick="return confirm('¿Eliminar este producto?')">

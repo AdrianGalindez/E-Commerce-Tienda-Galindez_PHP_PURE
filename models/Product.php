@@ -129,4 +129,15 @@ class Product {
 
         return $stmt->execute();
     }
+
+    public function getLastInsertId(){
+      return $this->conn->lastInsertId();
+    }
+
+    public function deleteByUrl($url){
+      $query = "DELETE FROM product_images WHERE url = :url";
+      $stmt = $this->conn->prepare($query);
+      $stmt->bindParam(":url", $url);
+      return $stmt->execute();
+    }
 }

@@ -70,7 +70,7 @@ define("BASE_URL", "http://localhost/E-Commerce-Tienda-Galindez_PHP_PURE/");
 <!-- /Header del Admin -->
 
 <h2>Crear Producto</h2>
-<form method="POST" action="index.php?controller=product&action=store">
+<form method="POST" action="index.php?controller=product&action=store" enctype="multipart/form-data">
 
     <label>Nombre:</label><br>
     <input type="text" name="nombre" required><br>
@@ -106,6 +106,8 @@ define("BASE_URL", "http://localhost/E-Commerce-Tienda-Galindez_PHP_PURE/");
     
     </select>
     <br>
+     <label>Imágenes (máx 5):</label><br>
+    <input type="file" name="imagenes[]" multiple accept="image/*"><br><br>
 
     <button type="submit">Guardar</button>
 </form>

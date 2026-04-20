@@ -117,6 +117,7 @@ if(!defined('BASE_URL')){
 <div class="container mt-4">
 <div class="row">
 
+
 <?php foreach($productos as $p): ?>
 
 <div class="col-md-3">
