@@ -21,7 +21,7 @@ class ProductController {
         $imageModel = new ProductImage();
         $imagenes = $imageModel->getAllByProductId($id);
         $product['fotos'] = array_column($imagenes, 'url');
-        require __DIR__ . "/../views/client/product/ClientDetailProduct.php";
+        require __DIR__ . "/../views/client/ClientDetailProduct.php";
     }
 
     // ADMIN - LISTADO (CRUD)

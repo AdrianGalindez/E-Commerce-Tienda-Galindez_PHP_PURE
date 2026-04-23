@@ -35,28 +35,44 @@ class CartController{
     require "views/client/ClientCart.php";
     }
 
-    // Agregar producto
-    public function add(){
-
+   // Agregar producto al carrito
+public function add(){
+    // Verifica que llegue el id del producto
     if(!isset($_POST["product_id"])){
         die("Producto no especificado.");
     }
-
+    // Guarda id recibido desde formulario
     $product_id = $_POST["product_id"];
-
+    // Si viene cantidad desde detalle la toma,
+    // si no viene usa 1 (home)
+    $cantidad = isset($_POST["cantidad"])
+        ? (int) $_POST["cantidad"]
+        : 1;
+    // Evita cantidades inválidas
+    if($cantidad < 1){
+        $cantidad = 1;
+    }
+    // Si carrito no existe lo crea
     if(!isset($_SESSION["cart"])){
         $_SESSION["cart"] = [];
     }
-
+    // Si producto ya existe suma cantidad
     if(isset($_SESSION["cart"][$product_id])){
-        $_SESSION["cart"][$product_id]["cantidad"]++;
-    } else {
-        $_SESSION["cart"][$product_id] = ["cantidad" => 1];
-    }
 
+        $_SESSION["cart"][$product_id]["cantidad"] += $cantidad;
+
+    }else{
+        // Si no existe lo agrega nuevo
+        $_SESSION["cart"][$product_id] = [
+            "cantidad" => $cantidad
+        ];
+    }
+    // Redirecciona al carrito
     header("Location: index.php?controller=cart&action=index");
     exit;
-   }
+}
+
+
 
     // Eliminar producto
     public function delete(){
