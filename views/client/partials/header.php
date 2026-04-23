@@ -11,6 +11,7 @@ define("BASE_URL", "http://localhost:8000/");
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/cards.css">
     <link rel="stylesheet" href="/assets/css/carousel.css">
+    <link rel="stylesheet" href="/assets/css/granos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 </head>
