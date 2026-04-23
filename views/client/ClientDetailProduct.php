@@ -1,9 +1,8 @@
 <?php
 require_once __DIR__ . '/partials/header.php';
-require_once __DIR__ . '/partials/carousel.php';
+// require_once __DIR__ . '/partials/carousel.php';
 ?>
 
-<link rel="stylesheet" href="/assets/css/granos.css">
 <div class="container mt-5">
     <div class="row g-4">
 
